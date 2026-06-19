@@ -28,8 +28,8 @@ body {
 /* ABAS */
 .tabs { display: flex; }
 .tab {
-  flex: 1; text-align: center; padding: 9px 4px 8px;
-  font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6);
+  flex: 1; text-align: center; padding: 9px 2px 8px;
+  font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6);
   cursor: pointer; border-bottom: 3px solid transparent;
   touch-action: manipulation; -webkit-appearance: none;
   background: none; border-top: none; border-left: none; border-right: none;
@@ -38,36 +38,21 @@ body {
 .tab.ativa { color: #fff; border-bottom-color: #fff; }
 
 /* TELAS */
-.tela { display: none; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-.tela.visivel { display: flex; flex-direction: column; }
+.tela { display: none; flex: 1; overflow: hidden; flex-direction: column; }
+.tela.visivel { display: flex; }
 
-/* RODAPÉ VERSÍCULO — fixo no fim do body */
+/* RODAPÉ VERSÍCULO */
 .versiculo {
-  background: #0e4a47;
-  padding: 7px 16px 8px;
-  text-align: center;
-  flex-shrink: 0;
+  background: #0e4a47; padding: 7px 16px 8px;
+  text-align: center; flex-shrink: 0;
 }
-.versiculo p {
-  color: rgba(255,255,255,0.85);
-  font-size: 10.5px;
-  font-style: italic;
-  line-height: 1.5;
-}
-.versiculo span {
-  display: block;
-  color: #bcdadb;
-  font-size: 9.5px;
-  font-weight: 700;
-  margin-top: 2px;
-  font-style: normal;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
+.versiculo p { color: rgba(255,255,255,0.85); font-size: 10.5px; font-style: italic; line-height: 1.5; }
+.versiculo span { display: block; color: #bcdadb; font-size: 9.5px; font-weight: 700; margin-top: 2px; font-style: normal; letter-spacing: 0.5px; text-transform: uppercase; }
 
-/* ===== ABA HOJE / SEMANA — conteúdo rolável ===== */
+/* SCROLL GENÉRICO */
 .scroll-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 12px 20px; }
 
+/* ===== ABA HOJE ===== */
 .hoje-data {
   background: linear-gradient(135deg, #165c59 0%, #18a8a3 100%);
   border-radius: 16px; padding: 16px; margin-bottom: 16px;
@@ -76,12 +61,11 @@ body {
 .hoje-data .dia-label { color: rgba(255,255,255,0.7); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
 .hoje-data .dia-num   { color: #fff; font-size: 32px; font-weight: 800; line-height: 1; }
 .hoje-data .dia-ext   { color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 2px; }
-
 .sem-evento { text-align: center; padding: 32px 20px; color: #18a8a3; font-size: 15px; line-height: 1.6; }
 .sem-evento .icon { font-size: 40px; margin-bottom: 10px; }
-
 .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #18a8a3; margin: 0 0 10px; }
 
+/* ===== ABA SEMANA ===== */
 .dia-bloco { margin-bottom: 18px; }
 .dia-bloco-title { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .dia-circulo { width: 40px; height: 40px; border-radius: 50%; background: #165c59; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; font-weight: 800; line-height: 1; }
@@ -91,7 +75,7 @@ body {
 .dia-nome span { display: block; font-size: 11px; font-weight: 500; color: #18a8a3; }
 .sem-ev-dia { font-size: 13px; color: #9ca3af; padding: 8px 12px; font-style: italic; }
 
-/* CARDS */
+/* CARDS EVENTO */
 .ev-card { background: #fff; border: 1.5px solid #d4eaea; border-radius: 13px; padding: 13px 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 1px 3px rgba(22,92,89,0.06); }
 .ev-card.ceia   { border-left: 5px solid #165c59; }
 .ev-card.ebd    { border-left: 5px solid #18a8a3; }
@@ -113,9 +97,67 @@ body {
 .badge.sement { background: #d0eded; color: #0e8080; }
 .badge.outro  { background: #eaf6f6; color: #62c1cd; }
 .cal-col { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
-.cal-btn { display: block; font-size: 11px; font-weight: 700; padding: 6px 9px; border-radius: 7px; text-decoration: none; text-align: center; cursor: pointer; border: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; -webkit-appearance: none; appearance: none; touch-action: manipulation; white-space: nowrap; }
-.cal-g { background: #e8f5f5; color: #165c59; }
-.cal-a { background: #f3f4f6; color: #1c1c1e; }
+.cal-btn-link { display: block; font-size: 11px; font-weight: 700; padding: 6px 9px; border-radius: 7px; text-decoration: none; text-align: center; white-space: nowrap; background: #e8f5f5; color: #165c59; }
+
+/* ===== ABA CALENDÁRIO ===== */
+.cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px 8px; flex-shrink: 0;
+  background: #fff; border-bottom: 1px solid #d4eaea;
+}
+.cal-mes-nome { font-size: 17px; font-weight: 800; color: #165c59; }
+.cal-nav { background: none; border: 2px solid #bcdadb; border-radius: 10px; width: 36px; height: 36px; font-size: 16px; color: #165c59; cursor: pointer; display: flex; align-items: center; justify-content: center; touch-action: manipulation; -webkit-appearance: none; font-family: inherit; }
+.cal-nav:active { background: #e4f4f4; }
+
+.cal-semana-labels {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  padding: 4px 8px 2px; flex-shrink: 0;
+  background: #f0f7f7;
+}
+.cal-sem-label { text-align: center; font-size: 10px; font-weight: 700; color: #18a8a3; text-transform: uppercase; padding: 3px 0; }
+
+.cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  padding: 4px 8px; gap: 3px; flex-shrink: 0;
+}
+.cal-dia {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  cursor: pointer; touch-action: manipulation; position: relative;
+  border: 1.5px solid transparent;
+  background: #fff;
+  -webkit-appearance: none; font-family: inherit;
+  padding: 0;
+}
+.cal-dia.vazio { background: transparent; border-color: transparent; cursor: default; }
+.cal-dia.tem-evento { border-color: #bcdadb; }
+.cal-dia.tem-evento:active { background: #e4f4f4; }
+.cal-dia.hoje { background: #165c59 !important; border-color: #165c59 !important; }
+.cal-dia.hoje .cal-dia-num { color: #fff !important; }
+.cal-dia.selecionado { background: #e4f4f4; border-color: #18a8a3 !important; }
+.cal-dia-num { font-size: 14px; font-weight: 700; color: #165c59; line-height: 1; }
+.cal-dia.sem-evento .cal-dia-num { color: #c4d4d3; font-weight: 400; }
+.cal-dia.vazio .cal-dia-num { display: none; }
+.cal-dots { display: flex; gap: 2px; margin-top: 3px; flex-wrap: wrap; justify-content: center; }
+.cal-dot { width: 5px; height: 5px; border-radius: 50%; }
+.dot-ceia   { background: #165c59; }
+.dot-ebd    { background: #18a8a3; }
+.dot-terca  { background: #62c1cd; }
+.dot-sement { background: #0e8080; }
+.dot-outro  { background: #bcdadb; }
+
+/* PAINEL DE DETALHE DO DIA */
+.cal-detalhe {
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 12px 12px 16px; border-top: 1px solid #d4eaea;
+}
+.cal-detalhe-titulo {
+  font-size: 13px; font-weight: 800; color: #165c59;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.cal-sem-ev { font-size: 14px; color: #9ca3af; text-align: center; padding: 20px; font-style: italic; }
 
 /* ===== ABA MINHA ESCALA ===== */
 .instrucao {
@@ -127,51 +169,43 @@ body {
 .instrucao-texto { color: #fff; font-size: 14px; font-weight: 700; }
 .instrucao-texto span { display: block; font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.65); margin-top: 1px; }
 
-/* GRID DE NOMES — ocupa TODO espaço disponível */
 .names-wrap { flex: 1; padding: 7px 10px 7px; display: flex; flex-direction: column; min-height: 0; }
 .names-grid {
-  flex: 1;
-  display: grid;
+  flex: 1; display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(8, 1fr);
   gap: 7px;
 }
 .name-btn {
   display: flex; align-items: center; justify-content: center;
-  background: #fff;
-  border: 2.5px solid #bcdadb;
-  border-radius: 14px;
-  font-size: clamp(16px, 4.5vw, 21px);
-  font-weight: 700; color: #165c59;
-  cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background: #fff; border: 2.5px solid #bcdadb; border-radius: 14px;
+  font-size: clamp(16px, 4.5vw, 21px); font-weight: 700; color: #165c59;
+  cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   -webkit-appearance: none; appearance: none; touch-action: manipulation;
-  text-align: center; width: 100%; height: 100%;
-  padding: 0; line-height: 1.2;
+  text-align: center; width: 100%; height: 100%; padding: 0; line-height: 1.2;
 }
 .name-btn:active { background: #e4f4f4; border-color: #18a8a3; }
 
-/* RESULTADO INDIVIDUAL */
 .resultado-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 12px 20px; display: none; }
 .person-header { background: linear-gradient(135deg, #165c59 0%, #18a8a3 100%); border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 3px 12px rgba(22,92,89,0.2); }
 .avatar { width: 46px; height: 46px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 800; color: #165c59; flex-shrink: 0; }
 .ph-nome { color: #fff; font-size: 18px; font-weight: 700; }
 .ph-sub  { color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 2px; }
 .resumo { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
-.pill { background: #fff; border: 2px solid #bcdadb; border-radius: 30px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #165c59; cursor: pointer; -webkit-appearance: none; appearance: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; touch-action: manipulation; }
+.pill { background: #fff; border: 2px solid #bcdadb; border-radius: 30px; padding: 6px 12px; font-size: 13px; font-weight: 600; color: #165c59; cursor: pointer; -webkit-appearance: none; appearance: none; font-family: inherit; touch-action: manipulation; }
 .pill.ativo { background: #165c59; border-color: #165c59; color: #fff; }
 .filtro-label { font-size: 12px; color: #18a8a3; text-align: center; margin-bottom: 10px; font-style: italic; display: none; }
-.add-btn { display: block; width: 100%; border: none; border-radius: 13px; padding: 14px; font-size: 15px; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; cursor: pointer; margin-bottom: 8px; -webkit-appearance: none; appearance: none; touch-action: manipulation; text-align: center; }
+.add-btn { display: block; width: 100%; border: none; border-radius: 13px; padding: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; margin-bottom: 8px; -webkit-appearance: none; appearance: none; touch-action: manipulation; text-align: center; }
 .btn-g { background: #165c59; color: #fff; }
 .btn-a { background: #1c1c1e; color: #fff; }
 .btn-hint { font-size: 12px; color: #18a8a3; text-align: center; margin-bottom: 14px; }
 .month-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #18a8a3; margin: 14px 0 8px; }
-.voltar-btn { display: block; width: 100%; background: #fff; border: 2px solid #bcdadb; border-radius: 13px; padding: 13px; font-size: 15px; font-weight: 700; color: #165c59; text-align: center; cursor: pointer; margin-bottom: 14px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; -webkit-appearance: none; appearance: none; touch-action: manipulation; }
+.cal-btn-apple { display: block; font-size: 11px; font-weight: 700; padding: 6px 9px; border-radius: 7px; text-align: center; cursor: pointer; border: none; font-family: inherit; -webkit-appearance: none; appearance: none; touch-action: manipulation; white-space: nowrap; background: #f3f4f6; color: #1c1c1e; }
+.voltar-btn { display: block; width: 100%; background: #fff; border: 2px solid #bcdadb; border-radius: 13px; padding: 13px; font-size: 15px; font-weight: 700; color: #165c59; text-align: center; cursor: pointer; margin-bottom: 14px; font-family: inherit; -webkit-appearance: none; appearance: none; touch-action: manipulation; }
 </style>
 </head>
 <body>
 
-<!-- HEADER + ABAS -->
 <div class="header">
   <div class="header-top">
     <div class="header-logo">
@@ -184,9 +218,10 @@ body {
     </div>
   </div>
   <div class="tabs">
-    <button class="tab ativa" onclick="mudarAba('hoje',this)">📅 Hoje</button>
+    <button class="tab ativa"  onclick="mudarAba('hoje',this)">📅 Hoje</button>
     <button class="tab" onclick="mudarAba('semana',this)">📆 Semana</button>
-    <button class="tab" onclick="mudarAba('escala',this)">👤 Minha Escala</button>
+    <button class="tab" onclick="mudarAba('calendario',this)">🗓 Calendário</button>
+    <button class="tab" onclick="mudarAba('escala',this)">👤 Escala</button>
   </div>
 </div>
 
@@ -200,6 +235,28 @@ body {
   <div class="scroll-wrap" id="semanaConteudo"></div>
 </div>
 
+<!-- ABA CALENDÁRIO -->
+<div id="abaCalendario" class="tela">
+  <div class="cal-header">
+    <button class="cal-nav" id="btnMesAnterior">‹</button>
+    <div class="cal-mes-nome" id="calMesNome"></div>
+    <button class="cal-nav" id="btnMesProximo">›</button>
+  </div>
+  <div class="cal-semana-labels">
+    <div class="cal-sem-label">Dom</div>
+    <div class="cal-sem-label">Seg</div>
+    <div class="cal-sem-label">Ter</div>
+    <div class="cal-sem-label">Qua</div>
+    <div class="cal-sem-label">Qui</div>
+    <div class="cal-sem-label">Sex</div>
+    <div class="cal-sem-label">Sáb</div>
+  </div>
+  <div class="cal-grid" id="calGrid"></div>
+  <div class="cal-detalhe" id="calDetalhe">
+    <div class="cal-sem-ev">Toque em um dia para ver os plantões</div>
+  </div>
+</div>
+
 <!-- ABA MINHA ESCALA -->
 <div id="abaEscala" class="tela">
   <div class="instrucao">
@@ -209,17 +266,15 @@ body {
       <span>Selecione abaixo e veja seus plantões do semestre</span>
     </div>
   </div>
-  <!-- tela nomes -->
   <div id="telaNomes" style="display:flex;flex-direction:column;flex:1;min-height:0;">
     <div class="names-wrap">
       <div class="names-grid" id="nomes"></div>
     </div>
   </div>
-  <!-- resultado individual -->
   <div class="resultado-wrap" id="resultado"></div>
 </div>
 
-<!-- RODAPÉ VERSÍCULO — sempre visível -->
+<!-- RODAPÉ -->
 <div class="versiculo">
   <p>"Cada um coloque a serviço dos outros o dom que recebeu,<br>como bons administradores da multiforme graça de Deus."</p>
   <span>1 Pedro 4:10</span>
@@ -232,11 +287,7 @@ var DS=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
 var TL={ceia:"Santa Ceia",ebd:"EBD/Culto",terca:"Terça da Vitória",sement:"Sementeira",outro:"Evento Especial"};
 var EM={ceia:"🟢",ebd:"🔵",terca:"🩵",sement:"🌊",outro:"⭕"};
 
-var PESSOAS=[
-  "Adelmo","Carlos","Daniel Abreu","Daniel Ferreira","Fabrício",
-  "Irene","João Batista","Julinho","Marcos","Nicholas",
-  "Nilton","Palhares","Renato","Ricardo","Rogério","Sinésio"
-];
+var PESSOAS=["Adelmo","Carlos","Daniel Abreu","Daniel Ferreira","Fabrício","Irene","João Batista","Julinho","Marcos","Nicholas","Nilton","Palhares","Renato","Ricardo","Rogério","Sinésio"];
 
 var E=[
   {m:6,d:21,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
@@ -316,27 +367,27 @@ function glink(ev,m,d,hi,hf){return"https://calendar.google.com/calendar/render?
 function vevent(ev,m,d,hi,hf){var s=dt(m,d,hi),f=dt(m,d,hf),uid=s+Math.random().toString(36).slice(2)+"@ip";return"BEGIN:VEVENT\r\nUID:"+uid+"\r\nDTSTART:"+s+"\r\nDTEND:"+f+"\r\nSUMMARY:Plantão Diaconia — "+ev+"\r\nLOCATION:IP Manancial\\, Brasília\\, DF\r\nDESCRIPTION:Escala de Diaconia — IP Manancial 2026\r\nEND:VEVENT";}
 function baixarICS(txt,nome){var b=new Blob([txt],{type:"text/calendar;charset=utf-8"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=nome;document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(u);},500);}
 function meusMeus(nome){var r=[];for(var i=0;i<E.length;i++){var mb=E[i].eq.split("/");for(var j=0;j<mb.length;j++){if(mb[j].trim()===nome){r.push(E[i]);break;}}}return r;}
+function eventosNoDia(m,d){var r=[];for(var i=0;i<E.length;i++) if(E[i].m===m&&E[i].d===d) r.push(E[i]);return r;}
 function mesmoDia(e,d){return e.m===(d.getMonth()+1)&&e.d===d.getDate();}
 function eData(e){return new Date(2026,e.m-1,e.d);}
 
-function cardEvento(e,mostrarData){
+function cardEvento(e, mostrarData){
   var h='<div class="ev-card '+e.tp+'">';
   if(mostrarData) h+='<div class="ev-data"><div class="ev-dia">'+e.d+'</div><div class="ev-mes">'+MA[e.m]+'</div></div>';
   h+='<div class="ev-info"><div class="ev-nome">'+e.ev+'</div>';
   h+='<div class="ev-hr">🕐 '+e.hr+'</div>';
   h+='<div class="ev-equipe">👥 '+e.eq.split("/").join(" · ")+'</div>';
   h+='<span class="badge '+e.tp+'">'+TL[e.tp]+'</span></div>';
-  h+='<div class="cal-col"><a class="cal-btn cal-g" href="'+glink(e.ev,e.m,e.d,e.hi,e.hf)+'" target="_blank" rel="noopener">Google</a></div>';
+  h+='<div class="cal-col"><a class="cal-btn-link" href="'+glink(e.ev,e.m,e.d,e.hi,e.hf)+'" target="_blank" rel="noopener">Google</a></div>';
   h+='</div>';
   return h;
 }
 
+// ===== HOJE =====
 function renderHoje(){
-  var agora=new Date();
-  var nomeDia=DS[agora.getDay()], dd=agora.getDate(), mm=agora.getMonth()+1;
-  var eventos=[];
-  for(var i=0;i<E.length;i++) if(mesmoDia(E[i],agora)) eventos.push(E[i]);
-  var h='<div class="hoje-data"><div class="dia-label">Hoje · '+nomeDia+'</div><div class="dia-num">'+dd+' de '+MF[mm]+'</div><div class="dia-ext">2026 · Diaconia IP Manancial</div></div>';
+  var agora=new Date(), dd=agora.getDate(), mm=agora.getMonth()+1;
+  var eventos=eventosNoDia(mm,dd);
+  var h='<div class="hoje-data"><div class="dia-label">Hoje · '+DS[agora.getDay()]+'</div><div class="dia-num">'+dd+' de '+MF[mm]+'</div><div class="dia-ext">2026 · Diaconia IP Manancial</div></div>';
   if(eventos.length===0){
     h+='<div class="sem-evento"><div class="icon">✅</div><p>Nenhum plantão hoje.<br>Aproveite o dia! 🙏</p></div>';
   } else {
@@ -345,10 +396,11 @@ function renderHoje(){
   }
   var prox=null;
   for(var i=0;i<E.length;i++){if(eData(E[i])>agora){prox=E[i];break;}}
-  if(prox){h+='<div class="section-title" style="margin-top:20px">Próximo plantão</div>'+cardEvento(prox,true);}
+  if(prox) h+='<div class="section-title" style="margin-top:20px">Próximo plantão</div>'+cardEvento(prox,true);
   document.getElementById("hojeConteudo").innerHTML=h;
 }
 
+// ===== SEMANA =====
 function renderSemana(){
   var agora=new Date();
   var ini=new Date(agora); ini.setDate(agora.getDate()-agora.getDay());
@@ -356,7 +408,7 @@ function renderSemana(){
   var h='<div class="section-title">Semana de '+ini.getDate()+'/'+p2(ini.getMonth()+1)+' a '+fim.getDate()+'/'+p2(fim.getMonth()+1)+'</div>';
   for(var d=0;d<7;d++){
     var dia=new Date(ini); dia.setDate(ini.getDate()+d);
-    var evts=[]; for(var i=0;i<E.length;i++) if(mesmoDia(E[i],dia)) evts.push(E[i]);
+    var evts=eventosNoDia(dia.getMonth()+1,dia.getDate());
     var ehHoje=dia.toDateString()===agora.toDateString();
     h+='<div class="dia-bloco"><div class="dia-bloco-title">';
     h+='<div class="dia-circulo'+(ehHoje?' hoje-circ':'')+'">'+dia.getDate()+'<span class="dc-mes">'+MA[dia.getMonth()+1]+'</span></div>';
@@ -369,6 +421,86 @@ function renderSemana(){
   document.getElementById("semanaConteudo").innerHTML=h;
 }
 
+// ===== CALENDÁRIO =====
+var calMes=new Date().getMonth()+1;
+var calAno=2026;
+var diaSelecionado=null;
+
+function renderCalendario(){
+  document.getElementById("calMesNome").textContent=MF[calMes]+" "+calAno;
+  var grid=document.getElementById("calGrid");
+  grid.innerHTML="";
+  var primeiroDia=new Date(calAno,calMes-1,1).getDay();
+  var diasNoMes=new Date(calAno,calMes,0).getDate();
+  var agora=new Date();
+  var hojeM=agora.getMonth()+1, hojeD=agora.getDate();
+
+  // células vazias antes do dia 1
+  for(var i=0;i<primeiroDia;i++){
+    var v=document.createElement("button");
+    v.className="cal-dia vazio"; v.disabled=true;
+    grid.appendChild(v);
+  }
+
+  for(var d=1;d<=diasNoMes;d++){
+    var evts=eventosNoDia(calMes,d);
+    var btn=document.createElement("button");
+    btn.type="button";
+    var cls="cal-dia";
+    if(evts.length>0) cls+=" tem-evento"; else cls+=" sem-evento";
+    if(calMes===hojeM&&d===hojeD) cls+=" hoje";
+    if(diaSelecionado===d) cls+=" selecionado";
+    btn.className=cls;
+
+    var numDiv=document.createElement("div");
+    numDiv.className="cal-dia-num";
+    numDiv.textContent=d;
+    btn.appendChild(numDiv);
+
+    if(evts.length>0){
+      var dots=document.createElement("div");
+      dots.className="cal-dots";
+      for(var ei=0;ei<Math.min(evts.length,3);ei++){
+        var dot=document.createElement("div");
+        dot.className="cal-dot dot-"+evts[ei].tp;
+        dots.appendChild(dot);
+      }
+      btn.appendChild(dots);
+    }
+
+    btn.onclick=(function(dia,eventos){
+      return function(){
+        diaSelecionado=dia;
+        renderCalendario();
+        mostrarDetalheCalendario(dia,eventos);
+      };
+    })(d,evts);
+
+    grid.appendChild(btn);
+  }
+}
+
+function mostrarDetalheCalendario(d, evts){
+  var det=document.getElementById("calDetalhe");
+  var h='<div class="cal-detalhe-titulo">'+DS[new Date(calAno,calMes-1,d).getDay()]+', '+d+' de '+MF[calMes]+'</div>';
+  if(evts.length===0){
+    h+='<div class="cal-sem-ev">Nenhum plantão neste dia</div>';
+  } else {
+    for(var i=0;i<evts.length;i++) h+=cardEvento(evts[i],false);
+  }
+  det.innerHTML=h;
+}
+
+function navMes(dir){
+  calMes+=dir;
+  if(calMes>12){calMes=1;calAno++;}
+  if(calMes<1){calMes=12;calAno--;}
+  diaSelecionado=null;
+  document.getElementById("calDetalhe").innerHTML='<div class="cal-sem-ev">Toque em um dia para ver os plantões</div>';
+  renderCalendario();
+}
+
+// ===== MINHA ESCALA =====
 var filtroAtivo=null, meusCurrent=[];
 function aplicarFiltro(tp){
   filtroAtivo=(filtroAtivo===tp)?null:tp;
@@ -407,7 +539,7 @@ function mostrar(nome){
     var evts=porMes[m];
     for(var ei=0;ei<evts.length;ei++){
       var e=evts[ei],gl=glink(e.ev,e.m,e.d,e.hi,e.hf),es=e.ev.replace(/"/g,"&quot;").replace(/'/g,"&#39;");
-      h+='<div class="ev-card '+e.tp+'" data-tp="'+e.tp+'"><div class="ev-data"><div class="ev-dia">'+e.d+'</div><div class="ev-mes">'+MA[e.m]+'</div></div><div class="ev-info"><div class="ev-nome">'+e.ev+'</div><div class="ev-hr">🕐 '+e.hr+'</div><span class="badge '+e.tp+'">'+TL[e.tp]+'</span></div><div class="cal-col"><a class="cal-btn cal-g" href="'+gl+'" target="_blank" rel="noopener">Google</a><button class="cal-btn cal-a" data-ev="'+es+'" data-m="'+e.m+'" data-d="'+e.d+'" data-hi="'+e.hi+'" data-hf="'+e.hf+'">Apple</button></div></div>';
+      h+='<div class="ev-card '+e.tp+'" data-tp="'+e.tp+'"><div class="ev-data"><div class="ev-dia">'+e.d+'</div><div class="ev-mes">'+MA[e.m]+'</div></div><div class="ev-info"><div class="ev-nome">'+e.ev+'</div><div class="ev-hr">🕐 '+e.hr+'</div><span class="badge '+e.tp+'">'+TL[e.tp]+'</span></div><div class="cal-col"><a class="cal-btn-link" href="'+gl+'" target="_blank" rel="noopener">Google</a><button class="cal-btn-apple" data-ev="'+es+'" data-m="'+e.m+'" data-d="'+e.d+'" data-hi="'+e.hi+'" data-hf="'+e.hf+'">Apple</button></div></div>';
     }
     h+='</div>';
   }
@@ -415,18 +547,20 @@ function mostrar(nome){
   document.getElementById("btnVoltar").onclick=function(){res.style.display="none"; tel.style.display="flex";};
   document.getElementById("btnG").onclick=function(){window.open(glink(meusCurrent[0].ev,meusCurrent[0].m,meusCurrent[0].d,meusCurrent[0].hi,meusCurrent[0].hf),"_blank");};
   document.getElementById("btnA").onclick=function(){var vs="";for(var i=0;i<meusCurrent.length;i++) vs+=vevent(meusCurrent[i].ev,meusCurrent[i].m,meusCurrent[i].d,meusCurrent[i].hi,meusCurrent[i].hf)+"\r\n";baixarICS("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IPManancial//PT\r\n"+vs+"END:VCALENDAR","escala_"+nome.replace(/\s+/g,"_")+"_2026.ics");};
-  var abts=res.querySelectorAll(".cal-a");
+  var abts=res.querySelectorAll(".cal-btn-apple");
   for(var i=0;i<abts.length;i++){abts[i].onclick=(function(btn){return function(){var txt="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IPManancial//PT\r\n"+vevent(btn.getAttribute("data-ev"),parseInt(btn.getAttribute("data-m")),parseInt(btn.getAttribute("data-d")),btn.getAttribute("data-hi"),btn.getAttribute("data-hf"))+"\r\nEND:VCALENDAR";baixarICS(txt,"plantao_"+p2(btn.getAttribute("data-d"))+"_"+p2(btn.getAttribute("data-m"))+".ics");};})(abts[i]);}
 }
 
+// ===== NAVEGAÇÃO ABAS =====
 function mudarAba(aba,btn){
-  var ids=["abaHoje","abaSemana","abaEscala"];
+  var ids=["abaHoje","abaSemana","abaCalendario","abaEscala"];
   for(var i=0;i<ids.length;i++) document.getElementById(ids[i]).classList.remove("visivel");
   document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("ativa");});
   document.getElementById("aba"+aba.charAt(0).toUpperCase()+aba.slice(1)).classList.add("visivel");
   btn.classList.add("ativa");
 }
 
+// ===== INIT =====
 (function(){
   var g=document.getElementById("nomes");
   for(var i=0;i<PESSOAS.length;i++){
@@ -436,8 +570,11 @@ function mudarAba(aba,btn){
     btn.onclick=(function(n){return function(){mostrar(n);};})(PESSOAS[i]);
     g.appendChild(btn);
   }
+  document.getElementById("btnMesAnterior").onclick=function(){navMes(-1);};
+  document.getElementById("btnMesProximo").onclick=function(){navMes(1);};
   renderHoje();
   renderSemana();
+  renderCalendario();
 })();
 </script>
 </body>
