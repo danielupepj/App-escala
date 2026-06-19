@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Escala Diaconia · IP Manancial</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F8; color: #111; min-height: 100vh; }
+
+.header { background: #1A3A6B; padding: 22px 16px 18px; text-align: center; }
+.header h1 { color: #fff; font-size: 20px; font-weight: 700; line-height: 1.3; }
+.header p  { color: rgba(255,255,255,0.65); font-size: 15px; margin-top: 5px; }
+
+.instrucao { font-size: 17px; font-weight: 700; color: #1A3A6B; margin: 22px 16px 12px; text-align: center; }
+
+.names-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 12px; }
+
+.name-btn {
+  display: block;
+  width: 100%;
+  background: #fff;
+  border: 2px solid #D1D5DB;
+  border-radius: 14px;
+  padding: 18px 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  line-height: 1.3;
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+}
+.name-btn .role {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: #6B7280;
+  margin-top: 3px;
+}
+.name-btn:active { background: #E8EEF9; }
+
+.divider { height: 1px; background: #D1D5DB; margin: 24px 12px 0; }
+
+#resultado { padding: 20px 12px 48px; }
+
+.empty-state { text-align: center; padding: 40px 20px; color: #6B7280; }
+.empty-icon  { font-size: 48px; margin-bottom: 14px; }
+.empty-state p { font-size: 18px; line-height: 1.6; }
+
+.person-header {
+  background: #1A3A6B;
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.avatar {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: #C49A28;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 800;
+  color: #1A3A6B;
+  flex-shrink: 0;
+}
+.ph-nome { color: #fff; font-size: 20px; font-weight: 700; }
+.ph-sub  { color: rgba(255,255,255,0.65); font-size: 14px; margin-top: 3px; }
+
+.resumo { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.pill {
+  background: #fff;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 30px;
+  padding: 7px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.add-btn {
+  display: block; width: 100%;
+  border: none; border-radius: 14px;
+  padding: 18px; font-size: 17px; font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  cursor: pointer; margin-bottom: 10px;
+  -webkit-appearance: none; appearance: none;
+  touch-action: manipulation;
+  text-align: center; line-height: 1.3;
+}
+.btn-g { background: #1A3A6B; color: #fff; }
+.btn-a { background: #1C1C1E; color: #fff; }
+.btn-hint { font-size: 14px; color: #9CA3AF; text-align: center; margin-bottom: 20px; }
+
+.month-title {
+  font-size: 15px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1.2px;
+  color: #6B7280; margin: 20px 0 10px;
+  padding-left: 4px;
+}
+
+.ev-card {
+  background: #fff;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 16px 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.ev-card.ceia   { border-left: 5px solid #C49A28; }
+.ev-card.ebd    { border-left: 5px solid #2B5BA0; }
+.ev-card.terca  { border-left: 5px solid #1A6B3A; }
+.ev-card.sement { border-left: 5px solid #5B2D8E; }
+.ev-card.outro  { border-left: 5px solid #B54A00; }
+
+.ev-data { text-align: center; min-width: 44px; flex-shrink: 0; padding-top: 2px; }
+.ev-dia  { font-size: 28px; font-weight: 800; line-height: 1; color: #111; }
+.ev-mes  { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #9CA3AF; letter-spacing: 0.5px; margin-top: 2px; }
+
+.ev-info { flex: 1; min-width: 0; }
+.ev-nome { font-size: 17px; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.3; }
+.ev-hr   { font-size: 15px; color: #4B5563; margin-bottom: 7px; }
+.badge   { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.3px; }
+.badge.ceia   { background: #FBF4E0; color: #8B6A10; }
+.badge.ebd    { background: #EBF0F9; color: #1A3A6B; }
+.badge.terca  { background: #E6F4EC; color: #14532D; }
+.badge.sement { background: #F2EBF9; color: #4B1E8E; }
+.badge.outro  { background: #FDF0E8; color: #92400E; }
+
+.cal-col { display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
+.cal-btn {
+  display: block;
+  font-size: 12px; font-weight: 700;
+  padding: 7px 10px; border-radius: 8px;
+  text-decoration: none; text-align: center;
+  cursor: pointer; border: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  -webkit-appearance: none; appearance: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+.cal-g { background: #DBEAFE; color: #1E40AF; }
+.cal-a { background: #F3F4F6; color: #1C1C1E; }
+
+.voltar-btn {
+  display: block; width: 100%;
+  background: #F3F4F6; border: 2px solid #D1D5DB;
+  border-radius: 14px; padding: 16px;
+  font-size: 17px; font-weight: 700; color: #374151;
+  text-align: center; cursor: pointer; margin-bottom: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  -webkit-appearance: none; appearance: none;
+  touch-action: manipulation;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⛪ IP Manancial<br>Escala de Diaconia</h1>
+  <p>2º Semestre 2026</p>
+</div>
+
+<div id="telaNomes">
+  <p class="instrucao">Toque no seu nome</p>
+  <div class="names-grid" id="nomes"></div>
+  <div style="height:32px"></div>
+</div>
+
+<div id="resultado" style="display:none; padding:20px 12px 48px;"></div>
+
+<script>
+var MA = ["","Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+var MF = ["","Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+var TL = {ceia:"Santa Ceia", ebd:"EBD/Culto", terca:"Terça da Vitória", sement:"Sementeira", outro:"Evento Especial"};
+
+var PESSOAS = [
+  ["Sinésio","Diácono"],
+  ["João Batista","Diácono"],
+  ["Adelmo","Diácono"],
+  ["Irene","Diáconisa"],
+  ["Nicholas","Diácono"],
+  ["Ricardo","Diácono"],
+  ["Fabrício","Diácono"],
+  ["Daniel Abreu","Diácono"],
+  ["Carlos","Diácono"],
+  ["Marcos","Diácono"],
+  ["Rogério","Diácono"],
+  ["Nilton","Diácono"],
+  ["Julinho","Diácono"],
+  ["Daniel Ferreira","Diácono"],
+  ["Renato","Diácono"],
+  ["Palhares","Presbítero"]
+];
+
+var E = [
+  {m:7, d:3,  eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Noite do Pijama",              hr:"20:00",                   tp:"outro",  hi:"200000",hf:"220000"},
+  {m:7, d:5,  eq:"Julinho/Renato/Nilton",                    ev:"EBD/Culto — Santa Ceia",       hr:"09:00 às 12:00 e 18:00", tp:"ceia",   hi:"090000",hf:"120000"},
+  {m:7, d:7,  eq:"Julinho/Renato/Nilton",                    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:7, d:11, eq:"Irene/Daniel Abreu/Nicholas",              ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:7, d:12, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:7, d:14, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:7, d:19, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:7, d:21, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:7, d:25, eq:"Irene/Daniel Abreu/Marcos",                ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:7, d:26, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:7, d:28, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:8, d:1,  eq:"Irene/Daniel Abreu/Daniel Ferreira",       ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:8, d:2,  eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"EBD/Culto — Santa Ceia",       hr:"09:00 às 12:00 e 18:00", tp:"ceia",   hi:"090000",hf:"120000"},
+  {m:8, d:4,  eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:8, d:9,  eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:8, d:11, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:8, d:16, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:8, d:18, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:8, d:22, eq:"Irene/Daniel Abreu/Fabrício/Palhares/Ricardo", ev:"Sementeira",              hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:8, d:23, eq:"Julinho/Renato/Nilton",                    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:8, d:25, eq:"Julinho/Renato/Nilton",                    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:8, d:30, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:9, d:1,  eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:9, d:5,  eq:"Irene/Daniel Abreu/Ricardo",               ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:9, d:6,  eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"EBD/Culto — Santa Ceia",       hr:"09:00 às 12:00 e 18:00", tp:"ceia",   hi:"090000",hf:"120000"},
+  {m:9, d:8,  eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:9, d:13, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:9, d:15, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:9, d:19, eq:"Irene/Daniel Abreu/João Batista/Palhares", ev:"Sementeira — Aniversariantes", hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:9, d:20, eq:"Julinho/Renato/Nilton",                    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:9, d:22, eq:"Julinho/Renato/Nilton",                    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:9, d:26, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Chá Evangelístico",            hr:"Diurno",                  tp:"outro",  hi:"090000",hf:"130000"},
+  {m:9, d:27, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:9, d:29, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:10,d:3,  eq:"Irene/Daniel Abreu/Julinho",               ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:10,d:4,  eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"EBD/Culto — Santa Ceia",       hr:"09:00 às 12:00 e 18:00", tp:"ceia",   hi:"090000",hf:"120000"},
+  {m:10,d:6,  eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:10,d:10, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Dia das Crianças",             hr:"Diurno",                  tp:"outro",  hi:"090000",hf:"130000"},
+  {m:10,d:11, eq:"Julinho/Renato/Nilton",                    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:10,d:13, eq:"Julinho/Renato/Nilton",                    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:10,d:18, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:10,d:20, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:10,d:24, eq:"Irene/Daniel Abreu/Renato/Palhares",       ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:10,d:25, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:10,d:27, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:11,d:1,  eq:"Julinho/Renato/Nilton",                    ev:"EBD/Culto — Santa Ceia",       hr:"09:00 às 12:00 e 18:00", tp:"ceia",   hi:"090000",hf:"120000"},
+  {m:11,d:3,  eq:"Julinho/Renato/Nilton",                    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:11,d:8,  eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:11,d:10, eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:11,d:14, eq:"Irene/Daniel Abreu/Nilton/Palhares",       ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:11,d:14, eq:"Julinho/Renato/Nilton",                    ev:"Congresso de Missões",         hr:"Diurno",                  tp:"outro",  hi:"090000",hf:"180000"},
+  {m:11,d:15, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:11,d:17, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:11,d:22, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:11,d:24, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:11,d:28, eq:"Irene/Daniel Abreu/Adelmo",                ev:"Sementeira",                   hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:11,d:29, eq:"Julinho/Renato/Nilton",                    ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:12,d:1,  eq:"Julinho/Renato/Nilton",                    ev:"Vigília",                      hr:"19:30",                   tp:"terca",  hi:"193000",hf:"230000"},
+  {m:12,d:6,  eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"EBD/Culto — Santa Ceia",       hr:"09:00 às 12:00 e 18:00", tp:"ceia",   hi:"090000",hf:"120000"},
+  {m:12,d:8,  eq:"Marcos/Carlos/Rogério/Daniel Ferreira",    ev:"Terça da Vitória",             hr:"19:30",                   tp:"terca",  hi:"193000",hf:"213000"},
+  {m:12,d:12, eq:"Irene/Daniel Abreu/Carlos/Palhares",       ev:"Sementeira — Encerramento",    hr:"08:30 às 11:30",          tp:"sement", hi:"083000",hf:"113000"},
+  {m:12,d:13, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"EBD/Culto",                    hr:"09:00 às 12:00 e 18:00", tp:"ebd",    hi:"090000",hf:"120000"},
+  {m:12,d:20, eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",   ev:"Culto de Natal",               hr:"18:00",                   tp:"outro",  hi:"180000",hf:"200000"},
+  {m:12,d:27, eq:"Julinho/Renato/Nilton",                    ev:"Culto",                        hr:"18:00",                   tp:"ebd",    hi:"180000",hf:"200000"},
+  {m:12,d:31, eq:"Sinésio/João Batista/Irene/Adelmo",        ev:"Culto da Virada",              hr:"19:00",                   tp:"outro",  hi:"190000",hf:"235900"}
+];
+
+function p2(n){ return ("0"+n).slice(-2); }
+function dt(m,d,t){ return "2026"+p2(m)+p2(d)+"T"+t; }
+
+function glink(ev,m,d,hi,hf){
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    +"&text="+encodeURIComponent("Plantão Diaconia — "+ev)
+    +"&dates="+dt(m,d,hi)+"/"+dt(m,d,hf)
+    +"&location="+encodeURIComponent("IP Manancial, Brasília, DF")
+    +"&details="+encodeURIComponent("Escala de Diaconia — IP Manancial 2026");
+}
+
+function vevent(ev,m,d,hi,hf){
+  var s=dt(m,d,hi), f=dt(m,d,hf);
+  var uid=s+Math.random().toString(36).slice(2)+"@ipmanancial";
+  return "BEGIN:VEVENT\r\nUID:"+uid+"\r\nDTSTART:"+s+"\r\nDTEND:"+f
+    +"\r\nSUMMARY:Plantão Diaconia — "+ev
+    +"\r\nLOCATION:IP Manancial\\, Brasília\\, DF"
+    +"\r\nDESCRIPTION:Escala de Diaconia — IP Manancial 2026"
+    +"\r\nEND:VEVENT";
+}
+
+function baixarICS(txt, nome){
+  var b = new Blob([txt],{type:"text/calendar;charset=utf-8"});
+  var u = URL.createObjectURL(b);
+  var a = document.createElement("a");
+  a.href=u; a.download=nome;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(u); }, 500);
+}
+
+function meusMeus(nome){
+  var r=[];
+  for(var i=0;i<E.length;i++){
+    var mb=E[i].eq.split("/");
+    for(var j=0;j<mb.length;j++){
+      if(mb[j].trim()===nome){ r.push(E[i]); break; }
+    }
+  }
+  return r;
+}
+
+function mostrar(nome){
+  var meus = meusMeus(nome);
+  var tel  = document.getElementById("telaNomes");
+  var res  = document.getElementById("resultado");
+
+  tel.style.display = "none";
+  res.style.display = "block";
+  window.scrollTo(0,0);
+
+  var cont={ceia:0,ebd:0,terca:0,sement:0,outro:0};
+  for(var i=0;i<meus.length;i++) cont[meus[i].tp]++;
+  var total=meus.length;
+  var ini=nome.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();
+
+  var h='<button class="voltar-btn" id="btnVoltar">← Voltar à lista de nomes</button>';
+
+  h+='<div class="person-header">'
+    +'<div class="avatar">'+ini+'</div>'
+    +'<div><div class="ph-nome">'+nome+'</div>'
+    +'<div class="ph-sub">'+total+' plantão'+(total>1?'s':'')+' no semestre</div></div>'
+    +'</div>';
+
+  h+='<div class="resumo">';
+  if(cont.ceia)   h+='<span class="pill">🟡 '+cont.ceia+' Ceia</span>';
+  if(cont.ebd)    h+='<span class="pill">🔵 '+cont.ebd+' EBD/Culto</span>';
+  if(cont.terca)  h+='<span class="pill">🟢 '+cont.terca+' Terça</span>';
+  if(cont.sement) h+='<span class="pill">🟣 '+cont.sement+' Sementeira</span>';
+  if(cont.outro)  h+='<span class="pill">🟠 '+cont.outro+' Especial</span>';
+  h+='</div>';
+
+  h+='<button class="add-btn btn-g" id="btnG">📅 Adicionar todos ao Google Agenda</button>';
+  h+='<button class="add-btn btn-a" id="btnA">🍎 Baixar para Apple Calendar</button>';
+  h+='<p class="btn-hint">Ou adicione um evento por vez abaixo ↓</p>';
+
+  var porMes={};
+  for(var i=0;i<meus.length;i++){
+    if(!porMes[meus[i].m]) porMes[meus[i].m]=[];
+    porMes[meus[i].m].push(meus[i]);
+  }
+  var ms=Object.keys(porMes).map(Number).sort(function(a,b){return a-b;});
+
+  for(var mi=0;mi<ms.length;mi++){
+    var m=ms[mi];
+    h+='<div class="month-title">'+MF[m]+'</div>';
+    var evts=porMes[m];
+    for(var ei=0;ei<evts.length;ei++){
+      var e=evts[ei];
+      var gl=glink(e.ev,e.m,e.d,e.hi,e.hf);
+      var es=e.ev.replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+      h+='<div class="ev-card '+e.tp+'">'
+        +'<div class="ev-data"><div class="ev-dia">'+e.d+'</div><div class="ev-mes">'+MA[e.m]+'</div></div>'
+        +'<div class="ev-info">'
+        +'<div class="ev-nome">'+e.ev+'</div>'
+        +'<div class="ev-hr">🕐 '+e.hr+'</div>'
+        +'<span class="badge '+e.tp+'">'+TL[e.tp]+'</span>'
+        +'</div>'
+        +'<div class="cal-col">'
+        +'<a class="cal-btn cal-g" href="'+gl+'" target="_blank" rel="noopener">Google</a>'
+        +'<button class="cal-btn cal-a" data-ev="'+es+'" data-m="'+e.m+'" data-d="'+e.d+'" data-hi="'+e.hi+'" data-hf="'+e.hf+'">Apple</button>'
+        +'</div>'
+        +'</div>';
+    }
+  }
+
+  res.innerHTML=h;
+
+  document.getElementById("btnVoltar").onclick=function(){
+    res.style.display="none";
+    tel.style.display="block";
+    window.scrollTo(0,0);
+  };
+
+  document.getElementById("btnG").onclick=function(){
+    window.open(glink(meus[0].ev,meus[0].m,meus[0].d,meus[0].hi,meus[0].hf),"_blank");
+  };
+
+  document.getElementById("btnA").onclick=function(){
+    var vs="";
+    for(var i=0;i<meus.length;i++) vs+=vevent(meus[i].ev,meus[i].m,meus[i].d,meus[i].hi,meus[i].hf)+"\r\n";
+    baixarICS("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IPManancial//PT\r\n"+vs+"END:VCALENDAR",
+      "escala_"+nome.replace(/\s+/g,"_")+"_2026.ics");
+  };
+
+  var abts=res.querySelectorAll(".cal-a");
+  for(var i=0;i<abts.length;i++){
+    abts[i].onclick=(function(btn){
+      return function(){
+        icsUm(btn.getAttribute("data-ev"),
+               parseInt(btn.getAttribute("data-m")),
+               parseInt(btn.getAttribute("data-d")),
+               btn.getAttribute("data-hi"),
+               btn.getAttribute("data-hf"));
+      };
+    })(abts[i]);
+  }
+}
+
+function icsUm(ev,m,d,hi,hf){
+  var txt="BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//IPManancial//PT\r\n"
+    +vevent(ev,m,d,hi,hf)+"\r\nEND:VCALENDAR";
+  baixarICS(txt,"plantao_"+p2(d)+"_"+p2(m)+".ics");
+}
+
+// Montar botões de nome
+(function(){
+  var g=document.getElementById("nomes");
+  for(var i=0;i<PESSOAS.length;i++){
+    var nome=PESSOAS[i][0], papel=PESSOAS[i][1];
+    var btn=document.createElement("button");
+    btn.type="button";
+    btn.className="name-btn";
+    btn.innerHTML=nome+'<span class="role">'+papel+'</span>';
+    btn.onclick=(function(n){ return function(){ mostrar(n); }; })(nome);
+    g.appendChild(btn);
+  }
+})();
+</script>
+</body>
+</html>
