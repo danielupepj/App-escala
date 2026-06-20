@@ -344,6 +344,7 @@ var TL={ceia:"Santa Ceia",ebd:"EBD/Culto",terca:"Terça da Vitória",sement:"Sem
 var EM={ceia:"🟡",ebd:"🔵",terca:"🟣",sement:"🟢",outro:"🟠"};
 var DOTCOR={ceia:"#f59e0b",ebd:"#38bdf8",terca:"#a78bfa",sement:"#34d399",outro:"#fb923c"};
 
+var nomeSelecionado='';
 var PESSOAS=["Adelmo","Carlos","Daniel Abreu","Daniel Ferreira","Fabrício","Irene","João Batista","Julinho","Marcos","Nicholas","Nilton","Palhares","Renato","Ricardo","Rogério","Sinésio"];
 
 var E=[
@@ -449,6 +450,15 @@ function cardEvento(e, mostrarData){
   return h;
 }
 
+function salvarNome(nome){
+  nomeSelecionado=nome;
+  try{ if(nome) localStorage.setItem('ipman_nome',nome); else localStorage.removeItem('ipman_nome'); }catch(e){}
+}
+function carregarNome(){
+  if(nomeSelecionado) return nomeSelecionado;
+  try{ return localStorage.getItem('ipman_nome')||''; }catch(e){ return ''; }
+}
+
 function cardMeuProximo(nome){
   if(!nome) return '';
   var meus=meusMeus(nome), h0=hoje0(), prox=null;
@@ -473,7 +483,7 @@ function atualizarMeuProximo(salvar){
   var sel=document.getElementById("dropNome");
   if(!sel) return;
   var nome=sel.value;
-  if(salvar){ if(nome) localStorage.setItem('ipman_nome',nome); else localStorage.removeItem('ipman_nome'); }
+  if(salvar) salvarNome(nome);
   var el=document.getElementById("meuProximo");
   if(!el) return;
   el.innerHTML=cardMeuProximo(nome);
@@ -514,7 +524,7 @@ function renderHoje(){
   var agora=new Date(), dd=agora.getDate(), mm=agora.getMonth()+1;
   var h0=hoje0();
   var eventos=eventosNoDia(mm,dd);
-  var nomeSalvo=localStorage.getItem('ipman_nome')||'';
+  var nomeSalvo=carregarNome();
   var h='<div class="hoje-data"><div class="dia-label">Hoje · '+DS[agora.getDay()]+'</div><div class="dia-num">'+dd+' de '+MF[mm]+'</div><div class="dia-ext">2026 · Diaconia IP Manancial</div></div>';
 
   // DROPDOWN MEU PRÓXIMO
@@ -570,17 +580,16 @@ function renderHoje(){
 
   document.getElementById("hojeConteudo").innerHTML=h;
 
-  // Ligar select via addEventListener (mais confiável que onchange inline)
+  // Ligar select e renderizar card
   var sel=document.getElementById("dropNome");
   if(sel){
-    sel.addEventListener("change",function(){
-      var nome=this.value;
-      if(nome) localStorage.setItem('ipman_nome',nome);
-      else localStorage.removeItem('ipman_nome');
-      document.getElementById("meuProximo").innerHTML=cardMeuProximo(nome);
-    });
-    // Se já tem nome salvo, renderizar o card imediatamente
-    if(nomeSalvo && sel.value===nomeSalvo){
+    sel.onchange=function(){
+      salvarNome(this.value);
+      document.getElementById("meuProximo").innerHTML=cardMeuProximo(this.value);
+    };
+    // Renderizar imediatamente se há nome salvo
+    if(nomeSalvo){
+      sel.value=nomeSalvo;
       document.getElementById("meuProximo").innerHTML=cardMeuProximo(nomeSalvo);
     }
   }
@@ -793,7 +802,7 @@ function mudarAba(aba,btn){
   renderSemana();
   renderCalendario();
   // Se há nome salvo, abrir direto na tela dele na aba Escala
-  var nomeSalvoInit=localStorage.getItem('ipman_nome');
+  var nomeSalvoInit=carregarNome();
   if(nomeSalvoInit) mostrar(nomeSalvoInit);
 })();
 </script>
