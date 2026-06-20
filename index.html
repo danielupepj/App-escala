@@ -43,6 +43,8 @@ body {
 /* TELAS */
 .tela { display: none; flex: 1; overflow: hidden; flex-direction: column; }
 .tela.visivel { display: flex; }
+/* Calendário precisa rolar como página inteira, não somente o painel de detalhes */
+#abaCalendario.visivel { overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .scroll-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 12px 20px; }
 
 /* RODAPÉ */
@@ -71,11 +73,12 @@ body {
 }
 .chp-evento:last-child { margin-bottom: 0; }
 .chp-evento.ceia   { border-color: #f59e0b; }
-.chp-evento.ebd    { border-color: #38bdf8; }
+.chp-evento.ebd    { border-color: #4ade80; }
 .chp-evento.culto  { border-color: #0ea5e9; }
 .chp-evento.terca  { border-color: #a78bfa; }
 .chp-evento.sement { border-color: #34d399; }
 .chp-evento.outro  { border-color: #fb923c; }
+.chp-evento.culto  { border-color: #0ea5e9; }
 .chp-ev-nome { color: #fff; font-size: 17px; font-weight: 800; margin-bottom: 4px; }
 .chp-hr { color: rgba(255,255,255,0.7); font-size: 13px; margin-bottom: 8px; }
 .chp-equipe { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
@@ -87,6 +90,7 @@ body {
 .chp-badge.terca  { background: #ede9fe; color: #5b21b6; }
 .chp-badge.sement { background: #d1fae5; color: #065f46; }
 .chp-badge.outro  { background: #ffedd5; color: #9a3412; }
+.chp-badge.culto  { background: #e0f2fe; color: #0369a1; }
 
 /* SEM EVENTO */
 .sem-evento { text-align: center; padding: 32px 20px; color: #18a8a3; font-size: 15px; line-height: 1.6; }
@@ -163,11 +167,12 @@ body {
 /* CARDS EVENTO (aba Semana e Calendário) */
 .ev-card { background: #fff; border: 1.5px solid #d4eaea; border-radius: 13px; padding: 13px 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 1px 3px rgba(22,92,89,0.06); }
 .ev-card.ceia   { border-left: 5px solid #f59e0b; }
-.ev-card.ebd    { border-left: 5px solid #38bdf8; }
+.ev-card.ebd    { border-left: 5px solid #4ade80; }
 .ev-card.culto  { border-left: 5px solid #0ea5e9; }
 .ev-card.terca  { border-left: 5px solid #a78bfa; }
 .ev-card.sement { border-left: 5px solid #34d399; }
 .ev-card.outro  { border-left: 5px solid #fb923c; }
+.ev-card.culto  { border-left: 5px solid #0ea5e9; }
 .ev-card.oculto { display: none; }
 .ev-data { text-align: center; min-width: 40px; flex-shrink: 0; }
 .ev-dia  { font-size: 24px; font-weight: 800; line-height: 1; color: #165c59; }
@@ -183,6 +188,7 @@ body {
 .badge.terca  { background: #ede9fe; color: #5b21b6; }
 .badge.sement { background: #d1fae5; color: #065f46; }
 .badge.outro  { background: #ffedd5; color: #9a3412; }
+.badge.culto  { background: #e0f2fe; color: #0369a1; }
 .cal-col { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
 .cal-btn-link { display: block; font-size: 11px; font-weight: 700; padding: 6px 9px; border-radius: 7px; text-decoration: none; text-align: center; white-space: nowrap; background: #e8f5f5; color: #165c59; }
 
@@ -195,6 +201,12 @@ body {
 .cal-semana-labels { display: grid; grid-template-columns: repeat(7, 1fr); padding: 4px 8px 2px; flex-shrink: 0; background: #f0f7f7; }
 .cal-sem-label { text-align: center; font-size: 10px; font-weight: 700; color: #18a8a3; text-transform: uppercase; padding: 3px 0; }
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); padding: 4px 8px; gap: 3px; flex-shrink: 0; }
+@media (max-height: 760px) {
+  .cal-header { padding: 8px 14px 6px; }
+  .cal-dia { border-radius: 9px; }
+  .cal-grid { gap: 2px; padding: 3px 8px; }
+  .cal-legenda { padding: 5px 12px; }
+}
 .cal-dia { aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; touch-action: manipulation; position: relative; border: 1.5px solid transparent; background: #fff; -webkit-appearance: none; font-family: inherit; padding: 0; }
 .cal-dia.vazio { background: transparent; border-color: transparent; cursor: default; }
 .cal-dia.tem-evento { border-color: #bcdadb; }
@@ -207,15 +219,16 @@ body {
 .cal-dots { display: flex; gap: 2px; margin-top: 3px; flex-wrap: wrap; justify-content: center; }
 .cal-dot { width: 5px; height: 5px; border-radius: 50%; }
 .dot-ceia   { background: #f59e0b; }
-.dot-ebd    { background: #38bdf8; }
+.dot-ebd    { background: #4ade80; }
 .dot-culto  { background: #0ea5e9; }
 .dot-terca  { background: #a78bfa; }
 .dot-sement { background: #34d399; }
 .dot-outro  { background: #fb923c; }
+.dot-culto  { background: #0ea5e9; }
 .cal-legenda { display: flex; flex-wrap: wrap; gap: 8px; padding: 7px 12px; border-top: 1px solid #d4eaea; background: #fff; flex-shrink: 0; }
 .leg-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #4b5563; font-weight: 500; }
 .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.cal-detalhe { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 12px 12px 16px; border-top: 1px solid #d4eaea; }
+.cal-detalhe { flex: 0 0 auto; overflow: visible; padding: 12px 12px 24px; border-top: 1px solid #d4eaea; scroll-behavior: smooth; }
 .cal-detalhe-titulo { font-size: 13px; font-weight: 800; color: #165c59; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
 .cal-sem-ev { font-size: 14px; color: #9ca3af; text-align: center; padding: 20px; font-style: italic; }
 
@@ -261,6 +274,52 @@ body {
 .cal-btn-apple { display: block; font-size: 11px; font-weight: 700; padding: 6px 9px; border-radius: 7px; text-align: center; cursor: pointer; border: none; font-family: inherit; -webkit-appearance: none; appearance: none; touch-action: manipulation; white-space: nowrap; background: #f3f4f6; color: #1c1c1e; }
 .voltar-btn { display: block; width: 100%; background: #fff; border: 2px solid #bcdadb; border-radius: 13px; padding: 13px; font-size: 15px; font-weight: 700; color: #165c59; text-align: center; cursor: pointer; margin-bottom: 14px; font-family: inherit; -webkit-appearance: none; appearance: none; touch-action: manipulation; }
 .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #18a8a3; margin: 0 0 10px; }
+
+/* BOTÃO ESTATÍSTICAS */
+.btns-extra { display: flex; gap: 8px; padding: 6px 10px 8px; flex-shrink: 0; }
+.btn-extra {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: #fff; border: 2px solid #bcdadb; border-radius: 12px;
+  padding: 11px 8px; font-size: 13px; font-weight: 700; color: #165c59;
+  cursor: pointer; font-family: inherit; -webkit-appearance: none;
+  appearance: none; touch-action: manipulation;
+}
+.btn-extra:active { background: #e4f4f4; border-color: #18a8a3; }
+
+/* TELA ESTATÍSTICAS */
+.stats-wrap { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 14px 12px 40px; display: none; }
+.stats-header { background: linear-gradient(135deg, #165c59 0%, #18a8a3 100%); border-radius: 16px; padding: 16px; margin-bottom: 16px; box-shadow: 0 3px 12px rgba(22,92,89,0.2); }
+.stats-header h2 { color: #fff; font-size: 17px; font-weight: 800; }
+.stats-header p  { color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 3px; }
+
+.stat-card { background: #fff; border: 1.5px solid #d4eaea; border-radius: 14px; padding: 14px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(22,92,89,0.06); }
+.stat-nome { font-size: 15px; font-weight: 800; color: #165c59; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.stat-avatar { width: 30px; height: 30px; border-radius: 50%; background: #165c59; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.stat-bars { display: flex; flex-direction: column; gap: 5px; }
+.stat-row { display: flex; align-items: center; gap: 8px; }
+.stat-label { font-size: 11px; color: #6b7280; width: 90px; flex-shrink: 0; }
+.stat-bar-wrap { flex: 1; background: #f0f7f7; border-radius: 20px; height: 8px; overflow: hidden; }
+.stat-bar-fill { height: 100%; border-radius: 20px; transition: width 0.3s; }
+.stat-num { font-size: 11px; font-weight: 800; color: #165c59; width: 16px; text-align: right; flex-shrink: 0; }
+.stat-total-row { margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f7f7; display: flex; justify-content: space-between; align-items: center; }
+.stat-total-label { font-size: 11px; color: #9ca3af; }
+.stat-total-num { font-size: 14px; font-weight: 800; color: #165c59; }
+
+/* PÓDIO TOP 3 */
+.podio { display: flex; align-items: flex-end; justify-content: center; gap: 8px; margin-bottom: 16px; }
+.podio-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.podio-corona { font-size: 16px; }
+.podio-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; }
+.podio-1 .podio-avatar { background: #f59e0b; width: 52px; height: 52px; font-size: 16px; }
+.podio-2 .podio-avatar { background: #9ca3af; }
+.podio-3 .podio-avatar { background: #b45309; }
+.podio-nome { font-size: 10px; font-weight: 700; color: #165c59; text-align: center; max-width: 60px; }
+.podio-num  { font-size: 11px; font-weight: 800; color: #18a8a3; }
+.podio-base { height: 8px; width: 56px; border-radius: 4px 4px 0 0; }
+.podio-1 .podio-base { background: #f59e0b; height: 24px; width: 64px; }
+.podio-2 .podio-base { background: #9ca3af; height: 16px; }
+.podio-3 .podio-base { background: #b45309; height: 10px; }
+.podio-section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #18a8a3; margin-bottom: 10px; text-align: center; }
 </style>
 </head>
 <body>
@@ -316,7 +375,7 @@ body {
   <div class="cal-grid" id="calGrid"></div>
   <div class="cal-legenda">
     <div class="leg-item"><div class="leg-dot" style="background:#f59e0b"></div> Santa Ceia</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#38bdf8"></div> EBD</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#4ade80"></div> EBD</div>
     <div class="leg-item"><div class="leg-dot" style="background:#0ea5e9"></div> Culto</div>
     <div class="leg-item"><div class="leg-dot" style="background:#a78bfa"></div> Terça</div>
     <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div> Sementeira</div>
@@ -340,8 +399,12 @@ body {
     <div class="names-wrap">
       <div class="names-grid" id="nomes"></div>
     </div>
+    <div class="btns-extra">
+      <button class="btn-extra" onclick="mostrarStats()">📊 Estatísticas do semestre</button>
+    </div>
   </div>
   <div class="resultado-wrap" id="resultado"></div>
+  <div class="stats-wrap" id="statsWrap"></div>
 </div>
 
 <div class="versiculo">
@@ -356,80 +419,106 @@ var MA=["","Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","De
 var MF=["","Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 var DS=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
 var DSA=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
-var TL={ceia:"Santa Ceia",ebd:"EBD",culto:"Culto",terca:"Terça da Vitória",sement:"Sementeira",outro:"Evento Especial"};
+var TL={ceia:"Culto Santa Ceia",ebd:"EBD",culto:"Culto",terca:"Terça da Vitória",sement:"Sementeira",outro:"Evento Especial"};
 var EM={ceia:"🟡",ebd:"🔵",culto:"🔷",terca:"🟣",sement:"🟢",outro:"🟠"};
-var DOTCOR={ceia:"#f59e0b",ebd:"#38bdf8",culto:"#0ea5e9",terca:"#a78bfa",sement:"#34d399",outro:"#fb923c"};
+var DOTCOR={ceia:"#f59e0b",ebd:"#4ade80",culto:"#0ea5e9",terca:"#a78bfa",sement:"#34d399",outro:"#fb923c"};
 
 var nomeSelecionado='';
 var PESSOAS=["Adelmo","Carlos","Daniel Abreu","Daniel Ferreira","Fabrício","Irene","João Batista","Julinho","Marcos","Nicholas","Nilton","Palhares","Renato","Ricardo","Rogério","Sinésio"];
 
 var E=[
-  {m:6,d:21,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:6,d:21,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:6,d:21,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:6,d:23,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:6,d:28,eq:"Marcos/Carlos/Rogério",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:6,d:28,eq:"Marcos/Carlos/Rogério",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:6,d:28,eq:"Marcos/Carlos/Rogério",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:6,d:30,eq:"Marcos/Carlos/Rogério",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:7,d:3,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Noite do Pijama",hr:"20:00",tp:"outro",hi:"200000",hf:"220000"},
-  {m:7,d:5,eq:"Julinho/Renato/Nilton",ev:"EBD/Culto — Santa Ceia",hr:"09:00 às 12:00 e 18:00",tp:"ceia",hi:"090000",hf:"120000"},
+  {m:7,d:5,eq:"Julinho/Renato/Nilton",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:5,eq:"Julinho/Renato/Nilton",ev:"Culto Santa Ceia",hr:"18:00",tp:"ceia",hi:"180000",hf:"213000"},
   {m:7,d:7,eq:"Julinho/Renato/Nilton",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:7,d:11,eq:"Irene/Daniel Abreu/Nicholas",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:7,d:12,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:12,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:12,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:7,d:14,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:7,d:19,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:19,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:19,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:7,d:21,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:7,d:25,eq:"Irene/Daniel Abreu/Marcos",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:7,d:26,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:26,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:7,d:26,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:7,d:28,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:8,d:1,eq:"Irene/Daniel Abreu/Daniel Ferreira",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:8,d:2,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto — Santa Ceia",hr:"09:00 às 12:00 e 18:00",tp:"ceia",hi:"090000",hf:"120000"},
+  {m:8,d:2,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:2,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto Santa Ceia",hr:"18:00",tp:"ceia",hi:"180000",hf:"213000"},
   {m:8,d:4,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:8,d:9,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:9,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:9,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:8,d:11,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:8,d:16,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:16,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:16,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:8,d:18,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:8,d:22,eq:"Irene/Daniel Abreu/Fabrício/Palhares/Ricardo",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:8,d:23,eq:"Julinho/Renato/Nilton",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:23,eq:"Julinho/Renato/Nilton",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:23,eq:"Julinho/Renato/Nilton",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:8,d:25,eq:"Julinho/Renato/Nilton",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:8,d:30,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:30,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:8,d:30,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:9,d:1,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:9,d:5,eq:"Irene/Daniel Abreu/Ricardo",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:9,d:6,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD/Culto — Santa Ceia",hr:"09:00 às 12:00 e 18:00",tp:"ceia",hi:"090000",hf:"120000"},
+  {m:9,d:6,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:6,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto Santa Ceia",hr:"18:00",tp:"ceia",hi:"180000",hf:"213000"},
   {m:9,d:8,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:9,d:13,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:13,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:13,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:9,d:15,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:9,d:19,eq:"Irene/Daniel Abreu/João Batista/Palhares",ev:"Sementeira — Aniversariantes",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:9,d:20,eq:"Julinho/Renato/Nilton",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:20,eq:"Julinho/Renato/Nilton",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:20,eq:"Julinho/Renato/Nilton",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:9,d:22,eq:"Julinho/Renato/Nilton",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:9,d:26,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Chá Evangelístico",hr:"Diurno",tp:"outro",hi:"090000",hf:"130000"},
-  {m:9,d:27,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:27,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:9,d:27,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:9,d:29,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:10,d:3,eq:"Irene/Daniel Abreu/Julinho",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:10,d:4,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD/Culto — Santa Ceia",hr:"09:00 às 12:00 e 18:00",tp:"ceia",hi:"090000",hf:"120000"},
+  {m:10,d:4,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:4,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Culto Santa Ceia",hr:"18:00",tp:"ceia",hi:"180000",hf:"213000"},
   {m:10,d:6,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:10,d:10,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Dia das Crianças",hr:"Diurno",tp:"outro",hi:"090000",hf:"130000"},
-  {m:10,d:11,eq:"Julinho/Renato/Nilton",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:11,eq:"Julinho/Renato/Nilton",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:11,eq:"Julinho/Renato/Nilton",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:10,d:13,eq:"Julinho/Renato/Nilton",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:10,d:18,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:18,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:18,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:10,d:20,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:10,d:24,eq:"Irene/Daniel Abreu/Renato/Palhares",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:10,d:25,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:25,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:10,d:25,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:10,d:27,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:11,d:1,eq:"Julinho/Renato/Nilton",ev:"EBD/Culto — Santa Ceia",hr:"09:00 às 12:00 e 18:00",tp:"ceia",hi:"090000",hf:"120000"},
+  {m:11,d:1,eq:"Julinho/Renato/Nilton",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:1,eq:"Julinho/Renato/Nilton",ev:"Culto Santa Ceia",hr:"18:00",tp:"ceia",hi:"180000",hf:"213000"},
   {m:11,d:3,eq:"Julinho/Renato/Nilton",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:11,d:8,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:8,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:8,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:11,d:10,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:11,d:14,eq:"Irene/Daniel Abreu/Nilton/Palhares",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
   {m:11,d:14,eq:"Julinho/Renato/Nilton",ev:"Congresso de Missões",hr:"Diurno",tp:"outro",hi:"090000",hf:"180000"},
-  {m:11,d:15,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:15,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:15,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:11,d:17,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
-  {m:11,d:22,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:22,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:22,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:11,d:24,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:11,d:28,eq:"Irene/Daniel Abreu/Adelmo",ev:"Sementeira",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:11,d:29,eq:"Julinho/Renato/Nilton",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:29,eq:"Julinho/Renato/Nilton",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:11,d:29,eq:"Julinho/Renato/Nilton",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:12,d:1,eq:"Julinho/Renato/Nilton",ev:"Vigília",hr:"19:30",tp:"terca",hi:"193000",hf:"230000"},
-  {m:12,d:6,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD/Culto — Santa Ceia",hr:"09:00 às 12:00 e 18:00",tp:"ceia",hi:"090000",hf:"120000"},
+  {m:12,d:6,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:12,d:6,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Culto Santa Ceia",hr:"18:00",tp:"ceia",hi:"180000",hf:"213000"},
   {m:12,d:8,eq:"Marcos/Carlos/Rogério/Daniel Ferreira",ev:"Terça da Vitória",hr:"19:30",tp:"terca",hi:"193000",hf:"213000"},
   {m:12,d:12,eq:"Irene/Daniel Abreu/Carlos/Palhares",ev:"Sementeira — Encerramento",hr:"08:30 às 11:30",tp:"sement",hi:"083000",hf:"113000"},
-  {m:12,d:13,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD/Culto",hr:"09:00 às 12:00 e 18:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:12,d:13,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"EBD",hr:"09:00 às 12:00",tp:"ebd",hi:"090000",hf:"120000"},
+  {m:12,d:13,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"213000"},
   {m:12,d:20,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto de Natal",hr:"18:00",tp:"outro",hi:"180000",hf:"200000"},
   {m:12,d:27,eq:"Julinho/Renato/Nilton",ev:"Culto",hr:"18:00",tp:"ebd",hi:"180000",hf:"200000"},
   {m:12,d:31,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto da Virada",hr:"19:00",tp:"outro",hi:"190000",hf:"235900"}
@@ -443,7 +532,7 @@ function expandirEbdCulto(lista){
     if(e.ev.indexOf("EBD/Culto")!==-1){
       var santa=e.ev.indexOf("Santa Ceia")!==-1;
       nova.push({m:e.m,d:e.d,eq:e.eq,ev:santa?"EBD — Santa Ceia":"EBD",hr:"09:00 às 12:00",tp:santa?"ceia":"ebd",hi:"090000",hf:"120000"});
-      nova.push({m:e.m,d:e.d,eq:e.eq,ev:santa?"Culto — Santa Ceia":"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"200000"});
+      nova.push({m:e.m,d:e.d,eq:e.eq,ev:santa?"Culto Santa Ceia":"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"200000"});
     }else{
       nova.push(e);
     }
@@ -753,6 +842,10 @@ function mostrarDetalheCalendario(d,evts){
   if(evts.length===0) h+='<div class="cal-sem-ev">Nenhum plantão neste dia</div>';
   else for(var i=0;i<evts.length;i++) h+=cardEvento(evts[i],false);
   det.innerHTML=h;
+  // Rolar a aba inteira para mostrar os eventos do dia
+  setTimeout(function(){
+    det.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 50);
 }
 function navMes(dir){
   var novo=calMes+dir;
@@ -838,6 +931,101 @@ function mudarAba(aba,btn){
   document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("ativa");});
   document.getElementById("aba"+aba.charAt(0).toUpperCase()+aba.slice(1)).classList.add("visivel");
   btn.classList.add("ativa");
+}
+
+// ===== ESTATÍSTICAS =====
+function mostrarStats(){
+  var tel=document.getElementById("telaNomes");
+  var res=document.getElementById("resultado");
+  var sw=document.getElementById("statsWrap");
+  tel.style.display="none"; res.style.display="none"; sw.style.display="block"; sw.scrollTop=0;
+
+  // Calcular totais por pessoa
+  var dados={};
+  for(var i=0;i<PESSOAS.length;i++){
+    dados[PESSOAS[i]]={ceia:0,ebd:0,culto:0,terca:0,sement:0,outro:0,total:0};
+  }
+  for(var i=0;i<E.length;i++){
+    var mb=E[i].eq.split("/");
+    for(var j=0;j<mb.length;j++){
+      var nome=mb[j].trim();
+      if(dados[nome]){
+        dados[nome][E[i].tp]++;
+        dados[nome].total++;
+      }
+    }
+  }
+
+  // Ordenar por total decrescente
+  var ranking=PESSOAS.slice().sort(function(a,b){return dados[b].total-dados[a].total;});
+  var maxTotal=dados[ranking[0]].total;
+
+  // Cores das barras
+  var barCor={ceia:"#f59e0b",ebd:"#4ade80",culto:"#0ea5e9",terca:"#a78bfa",sement:"#34d399",outro:"#fb923c"};
+  var barLabel={ceia:"Culto Santa Ceia",ebd:"EBD",culto:"Culto",terca:"Terça da Vitória",sement:"Sementeira",outro:"Especiais"};
+
+  var h='<button class="voltar-btn" id="btnVoltarStats">← Voltar à lista</button>';
+  h+='<div class="stats-header"><h2>📊 Estatísticas do Semestre</h2><p>Plantões realizados por diácono — 2026</p></div>';
+
+  // Pódio top 3
+  var top3=ranking.slice(0,3);
+  h+='<div class="podio-section-title">🏆 Mais plantões no semestre</div>';
+  h+='<div class="podio">';
+  // Ordem visual: 2º, 1º, 3º
+  var ordemVisual=[1,0,2];
+  var classesPodio=["podio-2","podio-1","podio-3"];
+  var coronas=["🥈","🥇","🥉"];
+  for(var vi=0;vi<3;vi++){
+    var ri=ordemVisual[vi];
+    if(!top3[ri]) continue;
+    var n=top3[ri];
+    var ini=n.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();
+    h+='<div class="podio-item '+classesPodio[vi]+'">';
+    h+='<div class="podio-corona">'+coronas[vi]+'</div>';
+    h+='<div class="podio-avatar">'+ini+'</div>';
+    h+='<div class="podio-nome">'+n.split(" ")[0]+'</div>';
+    h+='<div class="podio-num">'+dados[n].total+' plantões</div>';
+    h+='<div class="podio-base"></div>';
+    h+='</div>';
+  }
+  h+='</div>';
+
+  // Cards individuais
+  for(var ri=0;ri<ranking.length;ri++){
+    var nome=ranking[ri];
+    var d=dados[nome];
+    var ini=nome.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();
+    h+='<div class="stat-card">';
+    h+='<div class="stat-nome"><div class="stat-avatar">'+ini+'</div>'+nome+'</div>';
+    h+='<div class="stat-bars">';
+    var tiposStats=[
+      {label:"EBD",                 cor:"#4ade80", val:d.ebd},
+      {label:"Culto",               cor:"#0ea5e9", val:d.culto},
+      {label:"Culto Santa Ceia",  cor:"#f59e0b", val:d.ceia},
+      {label:"Terça da Vitória",    cor:"#a78bfa", val:d.terca},
+      {label:"Sementeira",          cor:"#34d399", val:d.sement},
+      {label:"Especiais",           cor:"#fb923c", val:d.outro}
+    ];
+    for(var ti=0;ti<tiposStats.length;ti++){
+      var ts=tiposStats[ti];
+      if(ts.val===0) continue;
+      var pct=Math.round((ts.val/maxTotal)*100);
+      h+='<div class="stat-row">';
+      h+='<div class="stat-label">'+ts.label+'</div>';
+      h+='<div class="stat-bar-wrap"><div class="stat-bar-fill" style="width:'+pct+'%;background:'+ts.cor+'"></div></div>';
+      h+='<div class="stat-num">'+ts.val+'</div>';
+      h+='</div>';
+    }
+    h+='</div>';
+    h+='<div class="stat-total-row"><div class="stat-total-label">Total de plantões</div><div class="stat-total-num">'+d.total+'</div></div>';
+    h+='</div>';
+  }
+
+  sw.innerHTML=h;
+  document.getElementById("btnVoltarStats").onclick=function(){
+    sw.style.display="none";
+    tel.style.display="flex";
+  };
 }
 
 // ===== INIT =====
