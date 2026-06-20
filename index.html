@@ -72,6 +72,7 @@ body {
 .chp-evento:last-child { margin-bottom: 0; }
 .chp-evento.ceia   { border-color: #f59e0b; }
 .chp-evento.ebd    { border-color: #38bdf8; }
+.chp-evento.culto  { border-color: #0ea5e9; }
 .chp-evento.terca  { border-color: #a78bfa; }
 .chp-evento.sement { border-color: #34d399; }
 .chp-evento.outro  { border-color: #fb923c; }
@@ -82,6 +83,7 @@ body {
 .chp-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
 .chp-badge.ceia   { background: #fef3c7; color: #92400e; }
 .chp-badge.ebd    { background: #e0f2fe; color: #075985; }
+.chp-badge.culto  { background: #dbeafe; color: #1e40af; }
 .chp-badge.terca  { background: #ede9fe; color: #5b21b6; }
 .chp-badge.sement { background: #d1fae5; color: #065f46; }
 .chp-badge.outro  { background: #ffedd5; color: #9a3412; }
@@ -124,6 +126,16 @@ body {
 .st-laranja { background: #ffedd5; color: #9a3412; }
 .st-vermelho{ background: #fee2e2; color: #991b1b; }
 
+
+.mpc-lista { margin-top: 12px; border-top: 1px solid #d4eaea; padding-top: 10px; }
+.mpc-lista-titulo { font-size: 10px; font-weight: 800; color: #18a8a3; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.mpc-mini { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #eef6f6; }
+.mpc-mini:last-child { border-bottom: none; }
+.mpc-mini-data { min-width: 48px; text-align: center; font-weight: 800; color: #165c59; font-size: 13px; }
+.mpc-mini-info { flex: 1; min-width: 0; }
+.mpc-mini-ev { font-size: 13px; font-weight: 700; color: #165c59; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mpc-mini-hr { font-size: 11px; color: #6b7280; margin-top: 1px; }
+
 /* RADAR */
 .radar-titulo { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #18a8a3; margin: 14px 0 8px; }
 .radar-item { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 10px; padding: 9px 12px; margin-bottom: 6px; border: 1px solid #d4eaea; }
@@ -152,6 +164,7 @@ body {
 .ev-card { background: #fff; border: 1.5px solid #d4eaea; border-radius: 13px; padding: 13px 12px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 12px; box-shadow: 0 1px 3px rgba(22,92,89,0.06); }
 .ev-card.ceia   { border-left: 5px solid #f59e0b; }
 .ev-card.ebd    { border-left: 5px solid #38bdf8; }
+.ev-card.culto  { border-left: 5px solid #0ea5e9; }
 .ev-card.terca  { border-left: 5px solid #a78bfa; }
 .ev-card.sement { border-left: 5px solid #34d399; }
 .ev-card.outro  { border-left: 5px solid #fb923c; }
@@ -166,6 +179,7 @@ body {
 .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
 .badge.ceia   { background: #fef3c7; color: #92400e; }
 .badge.ebd    { background: #e0f2fe; color: #075985; }
+.badge.culto  { background: #dbeafe; color: #1e40af; }
 .badge.terca  { background: #ede9fe; color: #5b21b6; }
 .badge.sement { background: #d1fae5; color: #065f46; }
 .badge.outro  { background: #ffedd5; color: #9a3412; }
@@ -194,6 +208,7 @@ body {
 .cal-dot { width: 5px; height: 5px; border-radius: 50%; }
 .dot-ceia   { background: #f59e0b; }
 .dot-ebd    { background: #38bdf8; }
+.dot-culto  { background: #0ea5e9; }
 .dot-terca  { background: #a78bfa; }
 .dot-sement { background: #34d399; }
 .dot-outro  { background: #fb923c; }
@@ -301,7 +316,8 @@ body {
   <div class="cal-grid" id="calGrid"></div>
   <div class="cal-legenda">
     <div class="leg-item"><div class="leg-dot" style="background:#f59e0b"></div> Santa Ceia</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#38bdf8"></div> EBD/Culto</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#38bdf8"></div> EBD</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#0ea5e9"></div> Culto</div>
     <div class="leg-item"><div class="leg-dot" style="background:#a78bfa"></div> Terça</div>
     <div class="leg-item"><div class="leg-dot" style="background:#34d399"></div> Sementeira</div>
     <div class="leg-item"><div class="leg-dot" style="background:#fb923c"></div> Especial</div>
@@ -340,9 +356,9 @@ var MA=["","Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","De
 var MF=["","Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 var DS=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
 var DSA=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
-var TL={ceia:"Santa Ceia",ebd:"EBD/Culto",terca:"Terça da Vitória",sement:"Sementeira",outro:"Evento Especial"};
-var EM={ceia:"🟡",ebd:"🔵",terca:"🟣",sement:"🟢",outro:"🟠"};
-var DOTCOR={ceia:"#f59e0b",ebd:"#38bdf8",terca:"#a78bfa",sement:"#34d399",outro:"#fb923c"};
+var TL={ceia:"Santa Ceia",ebd:"EBD",culto:"Culto",terca:"Terça da Vitória",sement:"Sementeira",outro:"Evento Especial"};
+var EM={ceia:"🟡",ebd:"🔵",culto:"🔷",terca:"🟣",sement:"🟢",outro:"🟠"};
+var DOTCOR={ceia:"#f59e0b",ebd:"#38bdf8",culto:"#0ea5e9",terca:"#a78bfa",sement:"#34d399",outro:"#fb923c"};
 
 var nomeSelecionado='';
 var PESSOAS=["Adelmo","Carlos","Daniel Abreu","Daniel Ferreira","Fabrício","Irene","João Batista","Julinho","Marcos","Nicholas","Nilton","Palhares","Renato","Ricardo","Rogério","Sinésio"];
@@ -417,7 +433,27 @@ var E=[
   {m:12,d:20,eq:"Nicholas/Ricardo/Fabrício/Daniel Abreu",ev:"Culto de Natal",hr:"18:00",tp:"outro",hi:"180000",hf:"200000"},
   {m:12,d:27,eq:"Julinho/Renato/Nilton",ev:"Culto",hr:"18:00",tp:"ebd",hi:"180000",hf:"200000"},
   {m:12,d:31,eq:"Sinésio/João Batista/Irene/Adelmo",ev:"Culto da Virada",hr:"19:00",tp:"outro",hi:"190000",hf:"235900"}
-];
+ ];
+
+// Separa automaticamente os domingos que estavam como "EBD/Culto" em dois cards distintos.
+function expandirEbdCulto(lista){
+  var nova=[];
+  for(var i=0;i<lista.length;i++){
+    var e=lista[i];
+    if(e.ev.indexOf("EBD/Culto")!==-1){
+      var santa=e.ev.indexOf("Santa Ceia")!==-1;
+      nova.push({m:e.m,d:e.d,eq:e.eq,ev:santa?"EBD — Santa Ceia":"EBD",hr:"09:00 às 12:00",tp:santa?"ceia":"ebd",hi:"090000",hf:"120000"});
+      nova.push({m:e.m,d:e.d,eq:e.eq,ev:santa?"Culto — Santa Ceia":"Culto",hr:"18:00",tp:"culto",hi:"180000",hf:"200000"});
+    }else{
+      nova.push(e);
+    }
+  }
+  nova.sort(function(a,b){
+    return (a.m-b.m)||(a.d-b.d)||((a.hi||"").localeCompare(b.hi||""));
+  });
+  return nova;
+}
+E=expandirEbdCulto(E);
 
 // helpers
 function p2(n){return("0"+n).slice(-2);}
@@ -461,9 +497,10 @@ function carregarNome(){
 
 function cardMeuProximo(nome){
   if(!nome) return '';
-  var meus=meusMeus(nome), h0=hoje0(), prox=null;
-  for(var i=0;i<meus.length;i++) if(eData(meus[i])>=h0){prox=meus[i];break;}
-  if(!prox) return '<p style="font-size:13px;color:#9ca3af;margin-bottom:12px">Nenhum plantão restante.</p>';
+  var meus=meusMeus(nome), h0=hoje0(), proximos=[];
+  for(var i=0;i<meus.length;i++) if(eData(meus[i])>=h0) proximos.push(meus[i]);
+  if(proximos.length===0) return '<p style="font-size:13px;color:#9ca3af;margin-bottom:12px">Nenhum plantão restante.</p>';
+  var prox=proximos[0];
   var diff=diffDias(prox), st=statusProx(diff), ed=eData(prox);
   var bcls=diff===0?'badge-vermelho':diff===1?'badge-laranja':diff<=7?'badge-amarelo':'badge-verde';
   var btxt=diff===0?'Hoje!':diff===1?'Amanhã':'em '+diff+' dias';
@@ -475,6 +512,16 @@ function cardMeuProximo(nome){
   h+='<div class="mpc-ev">'+prox.ev+'</div>';
   h+='<div class="mpc-hr">🕐 '+prox.hr+'</div>';
   h+='<div class="mpc-status '+st.cls+'">'+st.txt+'</div>';
+  if(proximos.length>1){
+    h+='<div class="mpc-lista"><div class="mpc-lista-titulo">Próximos plantões</div>';
+    for(var j=0;j<Math.min(proximos.length,3);j++){
+      var e=proximos[j], de=eData(e);
+      h+='<div class="mpc-mini"><div class="mpc-mini-data">'+p2(e.d)+'/'+p2(e.m)+'</div>';
+      h+='<div class="mpc-mini-info"><div class="mpc-mini-ev">'+e.ev+'</div><div class="mpc-mini-hr">'+DSA[de.getDay()]+' · '+e.hr+'</div></div>';
+      h+='<div style="width:9px;height:9px;border-radius:50%;background:'+DOTCOR[e.tp]+';flex-shrink:0;"></div></div>';
+    }
+    h+='</div>';
+  }
   h+='</div>';
   return h;
 }
@@ -663,7 +710,7 @@ function navSemana(dir){
 
 // ===== ABA CALENDÁRIO (jun–dez, sem voltar antes) =====
 var CAL_MIN_M=6, CAL_MAX_M=12;
-var calMes=new Date().getMonth()+1;
+var calMes=Math.min(CAL_MAX_M, Math.max(CAL_MIN_M, new Date().getMonth()+1));
 var calMesSel=null;
 
 function renderCalendario(){
@@ -728,7 +775,7 @@ function mostrar(nome){
   tel.style.display="none"; res.style.display="block"; res.scrollTop=0;
   var h0=hoje0(), prox=null;
   for(var i=0;i<meusCurrent.length;i++) if(eData(meusCurrent[i])>=h0){prox=meusCurrent[i];break;}
-  var cont={ceia:0,ebd:0,terca:0,sement:0,outro:0};
+  var cont={ceia:0,ebd:0,culto:0,terca:0,sement:0,outro:0};
   for(var i=0;i<meusCurrent.length;i++) cont[meusCurrent[i].tp]++;
   var ini=nome.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase();
 
@@ -749,7 +796,7 @@ function mostrar(nome){
   h+='</div>'; // person-header
 
   h+='<div class="resumo">';
-  var tipos=["ceia","ebd","terca","sement","outro"];
+  var tipos=["ceia","ebd","culto","terca","sement","outro"];
   for(var ti=0;ti<tipos.length;ti++){var tp=tipos[ti];if(cont[tp])h+='<button class="pill" data-tp="'+tp+'" onclick="aplicarFiltro(\''+tp+'\')">'+EM[tp]+' '+cont[tp]+' '+TL[tp]+'</button>';}
   h+='</div><div class="filtro-label" id="filtroLabel"></div>';
   h+='<button class="add-btn btn-g" id="btnG">📅 Adicionar todos ao Google Agenda</button>';
